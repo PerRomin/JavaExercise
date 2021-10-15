@@ -11,14 +11,14 @@ public class WordCalc {
 		int sum, num3;
 		String[] variable  = name.split(" ", 3);
 		sum = num1 - num2;
-		try {
-			num3 = (int) variables.get(variable[1]);
-		} catch (Exception e) {
-		 	num3 = 0xffff;
-		}
 		//string1 = (string1 + string2);
 		if (name.startsWith("=")==false){
-			
+			try {
+				num3 = (int) variables.get(variable[1]);
+			} catch (Exception e) {
+		 		num3 = 0xffff;
+			}
+
 			if(variable[0].contains("-")){
 				sum = calculateMinus(sum, num3, variable[2], variables);
 			}
@@ -33,13 +33,14 @@ public class WordCalc {
     	int sum, num3;
 		String[] variable  = name.split(" ", 3);
 		sum = num1 + num2;
-		try {
-			num3 = (int) variables.get(variable[1]);
-		} catch (Exception e) {
-		 	num3 = 0xffff;
-		}
 		//string1 = (string1 + string2);
 		if (name.startsWith("=")==false){
+			try {
+				num3 = (int) variables.get(variable[1]);
+			} catch (Exception e) {
+		 		num3 = 0xffff;
+			}
+
 			if(variable[0].contains("-")){
 				sum = calculateMinus(sum, num3,  variable[2], variables);
 			}
@@ -96,41 +97,32 @@ public class WordCalc {
     	//System.out.println("Enter the string:");
 
 	    // String input
-    	String sentence = myObj.nextLine();
+    	String sentence;
 		
-		if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){
-	   		//System.out.println("only space to tilde are allowed");
-			return;
-    	}
-		if (sentence.length() > 400 || sentence.length() < 1){
-			//System.out.println("wrong length");
-			return;
-		}
- 	   // Output input by user
-		sentence2 = sentence.split(" ", 2);
 		while(myObj.hasNextLine())
 		{
 			sentence = myObj.nextLine();
 			if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){
 	   		//System.out.println("only small letters and numbers are allowed");
+			   	myObj.close();
 				return;
 			}
 			sentence2 = sentence.split(" ", 2);
 			//if(sentence2[1].length()>=300){return;}
 
-			if (i++>=2000){return;}
+			if (i++>=2000){myObj.close();return;}
 			if(sentence2[0].contains("clear")){
 				variables = new HashMap<String, Integer>();
 			}
 			if(sentence2[0].contains("def")){
 				sentence3 = sentence.split(" ", 3);
-				if (sentence3[1].matches("^.*[^a-z ].*$") == true){return;}
-				if (sentence3[2].matches("^.*[^0-9 ].*$") == true){return;}
-				if(sentence3[1].length()>=30){return;}
-				if(sentence3[1].matches("unknown")){return;}
+				if (sentence3[1].matches("^.*[^a-z ].*$") == true){myObj.close();return;}
+				if (sentence3[2].matches("^.*[^0-9 ].*$") == true){myObj.close();return;}
+				if(sentence3[1].length()>=30){myObj.close();return;}
+				if(sentence3[1].matches("unknown")){myObj.close();return;}
 				var = def(sentence2[1]);
 				int value = Integer.valueOf(var[1]);
-				if (value < -1000 || value > 1000){return;}
+				if (value < -1000 || value > 1000){myObj.close();return;}
 				if(variables.size()==0) {
 					variables.put(var[0], value );
 				}else{
@@ -170,8 +162,9 @@ public class WordCalc {
 				string2 = "";
 				string3	= "";		
 			}
-			
+
     	}
+		myObj.close();
 		//for (String a : sentence2){
 	    //	System.out.println(a);	
 		//}			
