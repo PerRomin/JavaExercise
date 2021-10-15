@@ -10,16 +10,17 @@ public class Echo {
     String name = myObj.nextLine();
 
     if (name.matches("^.*[^a-zA-Z ].*$") == true){
-	System.out.println("Only letters are allowed");
+	    System.out.println("Only letters are allowed");
     }
     else{
-	if (name.length() > 15 || name.length() < 1){
+	  if (name.length() > 15 || name.length() < 1){
 	    System.out.println("wrong length");
-	}
-	else{
+	  }
+	  else{
     // Output input by user
 	    System.out.println(name + " " + name + " " + name);
-	}
+	  } 
     }
+	myObj.close();
   }
 }
