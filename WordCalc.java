@@ -75,6 +75,9 @@ public class WordCalc {
 		if (variable[1].contains("-")){
 			sum = calculateMinus(num1, num2, variable[3], variables);
 		}
+		if (variable[1].contains("=")){
+			sum = num1;
+		}
 		return sum;
 	}
 
