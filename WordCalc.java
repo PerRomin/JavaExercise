@@ -144,6 +144,7 @@ public class WordCalc {
 			}
 			}
 			if(sentence2[0].contains("calc")){
+				if (sentence2[1].matches(".*\\d.*") == true){myObj.close();return;}
 				string1 = sentence2[1] + " ";
 				String[] ar= string1.split(" ");
 				//System.out.println(ar.length / 2);
