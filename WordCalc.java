@@ -117,7 +117,7 @@ public class WordCalc {
 			if(sentence2[0].contains("def")){
 				sentence3 = sentence.split(" ", 3);
 				if (sentence3[1].matches("^.*[^a-z ].*$") == true){myObj.close();return;}
-				if (sentence3[2].matches("^.*[^0-9 ].*$") == true){myObj.close();return;}
+				if (sentence3[2].matches("^.*[^-0-9 ].*$") == true){myObj.close();return;}
 				if(sentence3[1].length()>=30){myObj.close();return;}
 				if(sentence3[1].matches("unknown")){myObj.close();return;}
 				var = def(sentence2[1]);
@@ -142,6 +142,10 @@ public class WordCalc {
 			}
 			if(sentence2[0].contains("calc")){
 				string1 = sentence2[1] + " ";
+				String[] ar= string1.split(" ");
+				//System.out.println(ar.length / 2);
+				if((ar.length / 2) > 15 ){myObj.close();return;}
+
 				if(variables.size()!=0) {
 					int sum = calc(sentence2[1], variables);
 					for(Entry<String, Integer> entry: variables.entrySet()) {
