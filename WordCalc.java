@@ -1,3 +1,5 @@
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.HashMap;
@@ -62,7 +64,7 @@ public class WordCalc {
 		 	num1 = 0xf;
 		}
 		try {
-			num2 = (int) variables.get(variable[2]);			
+			num2 = (int) variables.get(variable[2]);
 		} catch (Exception e) {
 			num2 = 0xf;
 		}
@@ -89,48 +91,62 @@ public class WordCalc {
 		return variable;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException{
 		Scanner myObj = new Scanner(System.in);
-		String[] sentence2;
-		String[] sentence3;
+		//Scanner myObj = new Scanner(new File( "sample.in"));
+
+		String sentence2;
+		int sentence3;
 		String[] var;
 		int i=1;
 		HashMap<String, Integer> variables = new HashMap<String, Integer>();
-		
-    	//System.out.println("Enter the string:");
+		HashMap<Integer, String> backvariables = new HashMap<Integer, String>();
+
+		//System.out.println("Enter the string:");
 
 	    // String input
     	String sentence;
 		
-		while(myObj.hasNextLine())
+		while(myObj.hasNext())
 		{
-			sentence = myObj.nextLine();
+			sentence = myObj.next();
 			if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){
 	   		//System.out.println("only small letters and numbers are allowed");
 			   	myObj.close();
 				return;
 			}
-			sentence2 = sentence.split(" ", 2);
+			//sentence2 = sentence.split(" ", 2);
 			//if(sentence2[1].length()>=300){return;}
 
 			if (i++>=2000){myObj.close();return;}
-			if(sentence2[0].contains("clear")){
+			if(sentence.contains("clear")){
 				variables = new HashMap<String, Integer>();
+				backvariables = new HashMap<Integer, String>();
+
 			}
-			if(sentence2[0].contains("def")){
-				sentence3 = sentence.split(" ", 3);
-				if (sentence3[1].matches("^.*[^a-z ].*$") == true){myObj.close();return;}
-				if (sentence3[2].matches("^.*[^-0-9 ].*$") == true){myObj.close();return;}
-				if(sentence3[1].length()>=30){myObj.close();return;}
-				if(sentence3[1].matches("unknown")){myObj.close();return;}
-				var = def(sentence2[1]);
-				int value = Integer.valueOf(var[1]);
+			if(sentence.contains("def")){
+				sentence2 = myObj.next();
+				int value = myObj.nextInt();
+				//sentence3 = sentence.split(" ", 3);
+				if (sentence2.matches("^.*[^a-z ].*$")){myObj.close();return;}
+				//if (sentence3[2].matches("^.*[^-0-9 ].*$") == true){myObj.close();return;}
+				//if(sentence3[1].length()>=30){myObj.close();return;}
+				if(sentence2.matches("unknown")){myObj.close();return;}
+				//var = def(sentence2[1]);
+				//int value = Integer.valueOf(var[1]);
 				if (value < -1000 || value > 1000){myObj.close();return;}
 				if(variables.size()==0) {
-					variables.put(var[0], value );
+					variables.put(sentence2, value );
+					backvariables.put(value, sentence2);
 				}else{
-					boolean flag=false;
-					for(Entry<String, Integer> entry: variables.entrySet()) {
+					//boolean flag=false;
+					if(backvariables.get(value) == null){
+						variables.put(sentence2, value);
+						backvariables.put(value, sentence2);
+
+					}
+
+					/*for(Entry<String, Integer> entry: variables.entrySet()) {
 		  			// if give value is equal to value from entry
       				// print the corresponding key
 					if(entry.getValue() == value) {
@@ -139,28 +155,27 @@ public class WordCalc {
 		  			}
 				}
 				if (flag==false){						
-					variables.put(var[0], value );
-				}
+					variables.put(sentence2, value );
+					backvariables.put(value, sentence2);
+
+				}*/
 			}
 			}
-			if(sentence2[0].contains("calc")){
-				if (sentence2[1].matches(".*\\d.*") == true){myObj.close();return;}
-				string1 = sentence2[1] + " ";
+			if(sentence.contains("calc")){
+				string1 = myObj.nextLine() ;
+				string1 = string1.trim() + " ";
+				//string1 = sentence2[1] + " ";
 				String[] ar= string1.split(" ");
 				//System.out.println(ar.length / 2);
 				if((ar.length / 2) > 15 ){myObj.close();return;}
 
 				if(variables.size()!=0) {
-					int sum = calc(sentence2[1], variables);
-					for(Entry<String, Integer> entry: variables.entrySet()) {
-		  			// if give value is equal to value from entry
-      				// print the corresponding key
-						if(entry.getValue() == sum) {
-        					string3 = (entry.getKey());
-    	   		 			break;
-    		  			}else{
-    						string3 = ("unknown");
-						}
+					int sum = calc(string1, variables);
+					if(backvariables.get(sum) == null){
+						string3 = "unknown";
+					}else {
+						string3 = backvariables.get(sum);
+
 					}
 				} else {
 					string3 = ("unknown");
