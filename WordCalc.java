@@ -111,10 +111,10 @@ public class WordCalc {
 		while(myObj.hasNext())
 		{
 			sentence = myObj.next();
-			if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){break;}
+			//if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){break;}
 	   		//System.out.println("only small letters and numbers are allowed")			}
 
-			if (i++>=2000){break;}
+			//if (i++>=2000){break;}
 			if(sentence.contains("clear")){
 				variables = new HashMap<String, Integer>();
 				backvariables = new HashMap<Integer, String>();
@@ -124,7 +124,7 @@ public class WordCalc {
 				sentence2 = myObj.next();
 				int value = myObj.nextInt();
 				//sentence3 = sentence.split(" ", 3);
-				if (sentence2.matches("^.*[^a-z ].*$")) {break;}
+				//if (sentence2.matches("^.*[^a-z ].*$")) {break;}
 				//if(sentence3[1].length()>=30){myObj.close();return;}
 				//var = def(sentence2[1]);
 				//int value = Integer.valueOf(var[1]);
