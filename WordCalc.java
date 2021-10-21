@@ -114,7 +114,7 @@ public class WordCalc {
 			//if (sentence.matches("^.*[^+-=a-z0-9 ].*$") == true){break;}
 	   		//System.out.println("only small letters and numbers are allowed")			}
 
-			//if (i++>=2000){break;}
+			if (i++>=2000){break;}
 			if(sentence.contains("clear")){
 				variables = new HashMap<String, Integer>();
 				backvariables = new HashMap<Integer, String>();
@@ -123,31 +123,23 @@ public class WordCalc {
 			if(sentence.contains("def")) {
 				sentence2 = myObj.next();
 				int value = myObj.nextInt();
-				//sentence3 = sentence.split(" ", 3);
-				//if (sentence2.matches("^.*[^a-z ].*$")) {break;}
-				//if(sentence3[1].length()>=30){myObj.close();return;}
-				//var = def(sentence2[1]);
-				//int value = Integer.valueOf(var[1]);
-				if (value < -1000 || value > 1000) {
-					myObj.close();
-					return;
-				}
-				if (sentence2.matches("unknown")) {}
-				else {
+				if (value < -1000 || value > 1000){}
+				else{
+					if (sentence2.matches("^.*[^a-z ].*$")) {}
+					else{
+					//if(sentence3[1].length()>=30){myObj.close();return;}
+					if (sentence2.matches("unknown")) {}
+					else {
 					if (variables.size() == 0) {
 						variables.put(sentence2, value);
 						backvariables.put(value, sentence2);
 					} else {
 						backvariables.remove(variables.get(sentence2));
-						Iterator<Entry<String, Integer>> iterator = variables.entrySet().iterator();
-						while (iterator.hasNext()) {
-							if (iterator.next().getKey().equals(sentence2))
-								iterator.remove();
-						}
-
+						variables.remove(sentence2);
 						variables.put(sentence2, value);
 						backvariables.put(value, sentence2);
-
+						}
+						}
 					}
 				}
 			}
@@ -157,8 +149,8 @@ public class WordCalc {
 				//string1 = sentence2[1] + " ";
 				String[] ar= string1.split(" ");
 				//System.out.println(ar.length / 2);
-				if((ar.length / 2) > 15 ){break;}
-
+				if((ar.length / 2) > 15 ){}
+				else {
 				if(variables.size()!=0) {
 					int sum = calc(string1, variables);
 					if(backvariables.get(sum) == null){
@@ -174,6 +166,7 @@ public class WordCalc {
 				string1 = "";
 				string2 = "";
 				string3	= "";		
+			}
 			}
 
     	}
