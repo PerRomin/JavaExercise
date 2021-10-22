@@ -61,7 +61,7 @@ public class WordCalc {
 		try {
 			num2 = variables.get(variable[2]);
 		} catch (Exception e) {
-			num2 = 0xf;
+			num2 = 0xffff;
 		}
 		//System.err.println("nummer1:" + num1);
 		//System.err.println("nummer2:" + num2);
@@ -103,10 +103,12 @@ public class WordCalc {
 						variables.put(sentence2, value);
 						backvariables.put(value, sentence2);
 					} else {
-						backvariables.remove(variables.get(sentence2));
-						variables.remove(sentence2);
-						variables.put(sentence2, value);
-						backvariables.put(value, sentence2);
+						if(backvariables.get(value)==null) {
+							backvariables.remove(variables.get(sentence2));
+							variables.remove(sentence2);
+							variables.put(sentence2, value);
+							backvariables.put(value, sentence2);
+						}
 					}
 				} catch (Exception e) {}
 
@@ -116,6 +118,7 @@ public class WordCalc {
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim() + " ";
 				if (string1.startsWith("=")){
+					string1 = "";
 					string3 = "unknown";
 				} else {
 				if(variables.size()!=0) {
