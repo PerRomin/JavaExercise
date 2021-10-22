@@ -21,7 +21,7 @@ public class WordCalc {
 					sum = calculatePlus(sum, num3, variable[2], variables);
 				}
 			} catch (Exception e) {
-				sum = 0xffff;
+				sum = 0xff;
 			}
 		}
 		return sum;
@@ -44,7 +44,7 @@ public class WordCalc {
 					sum = calculatePlus(sum, num3, variable[2], variables);
 				}
 			} catch (Exception e) {
-				sum = 0xffff;
+				sum = 0xff;
 			}
 		}
 		//System.err.println(string1 + string2);
@@ -72,10 +72,10 @@ public class WordCalc {
 				sum = num1;
 				}
 			} catch (Exception e) {
-				sum = 0xffff;
+				sum = 0xff;
 			}
 		} catch (Exception e) {
-			sum = 0xffff;
+			sum = 0xff;
 		}
 		return sum;
 	}
@@ -118,21 +118,20 @@ public class WordCalc {
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim();
 				if (string1.startsWith("=")){
-					string3 = "unknown";
+					System.out.println("unknown");
 				} else {
 				if(variables.size()!=0) {
 					int sum = calc(string1, variables);
 					if(backvariables.get(sum) == null){
-						string3 = "unknown";
+						System.out.println(string1 + " " + "unknown");
 					}else {
 						string3 = backvariables.get(sum);
-
+						System.out.println(string1 + " " + string3);
 					}
 				} else {
-					string3 = "unknown";
+					System.out.println("unknown");
 				}
 				}
-				System.out.println(string1 + " " + string3);
 				string1 = "";
 				string2 = "";
 				string3	= "";
