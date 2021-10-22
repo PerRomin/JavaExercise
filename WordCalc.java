@@ -11,7 +11,11 @@ public class WordCalc {
 		sum = num1 - num2;
 		//string1 = (string1 + string2);
 		if (name.startsWith("=")==false){
-			num3 = variables.get(variable[1]);
+			try {
+				num3 = (int) variables.get(variable[1]);
+			} catch (Exception e) {
+				num3 = 0xffff;
+			}
 			if(variable[0].contains("-")){
 				sum = calculateMinus(sum, num3, variable[2], variables);
 			}
@@ -26,10 +30,14 @@ public class WordCalc {
     	int sum, num3;
 		String[] variable  = name.split(" ", 3);
 		sum = num1 + num2;
+
 		//string1 = (string1 + string2);
 		if (name.startsWith("=")==false){
-			num3 = (int) variables.get(variable[1]);
-
+			try {
+				num3 = (int) variables.get(variable[1]);
+			} catch (Exception e) {
+				num3 = 0xffff;
+			}
 			if(variable[0].contains("-")){
 				sum = calculateMinus(sum, num3,  variable[2], variables);
 			}
@@ -107,6 +115,9 @@ public class WordCalc {
 			if(sentence.contains("calc")){
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim() + " ";
+				if (string1.startsWith("=")){
+					string3 = "unknown";
+				} else {
 				if(variables.size()!=0) {
 					int sum = calc(string1, variables);
 					if(backvariables.get(sum) == null){
@@ -116,7 +127,8 @@ public class WordCalc {
 
 					}
 				} else {
-					string3 = ("unknown");
+					string3 = "unknown";
+				}
 				}
 				System.out.println(string1 + string3);
 				string1 = "";
