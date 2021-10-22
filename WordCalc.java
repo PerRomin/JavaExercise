@@ -21,7 +21,7 @@ public class WordCalc {
 					sum = calculatePlus(sum, num3, variable[2], variables);
 				}
 			} catch (Exception e) {
-				sum = 0xff;
+				sum = 0xffff;
 			}
 		}
 		return sum;
@@ -44,7 +44,7 @@ public class WordCalc {
 					sum = calculatePlus(sum, num3, variable[2], variables);
 				}
 			} catch (Exception e) {
-				sum = 0xff;
+				sum = 0xffff;
 			}
 		}
 		//System.err.println(string1 + string2);
@@ -72,10 +72,10 @@ public class WordCalc {
 				sum = num1;
 				}
 			} catch (Exception e) {
-				sum = 0xff;
+				sum = 0xffff;
 			}
 		} catch (Exception e) {
-			sum = 0xff;
+			sum = 0xffff;
 		}
 		return sum;
 	}
@@ -110,7 +110,9 @@ public class WordCalc {
 						variables.put(sentence2, value);
 						backvariables.put(value, sentence2);
 					}
-				} catch (Exception e) {}
+				} catch (Exception e) {
+					;
+				}
 
 			}
 
@@ -122,15 +124,20 @@ public class WordCalc {
 				} else {
 				if(variables.size()!=0) {
 					int sum = calc(string1, variables);
-					if(backvariables.get(sum) == null){
-						System.out.println(string1 + " " + "unknown");
-					}else {
-						string3 = backvariables.get(sum);
-						System.out.println(string1 + " " + string3);
-					}
-				} else {
+						if(backvariables.get(sum) == null){
+							if(string1.isEmpty()){
+								System.out.println("unknown");
+							}else {
+								System.out.println(string1 + " " + "unknown");
+							}
+						}else {
+							string3 = backvariables.get(sum);
+							System.out.println(string1 + " " + string3);
+						}
+					} else {
 					System.out.println("unknown");
-				}
+					}
+
 				}
 				string1 = "";
 				string2 = "";
