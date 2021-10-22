@@ -72,7 +72,7 @@ public class WordCalc {
 				sum = num1;
 				}
 			} catch (Exception e) {
-				sum = 0xffff;
+				sum = num1;
 			}
 		} catch (Exception e) {
 			sum = 0xffff;
