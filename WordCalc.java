@@ -68,11 +68,12 @@ public class WordCalc {
 				if (variable[1].contains("-")){
 					sum = calculateMinus(num1, num2, variable[3], variables);
 				}
+			} catch (Exception e) {
 				if (variable[1].contains("=")){
 				sum = num1;
+				}else {
+					sum = 0xffff;
 				}
-			} catch (Exception e) {
-				sum = num1;
 			}
 		} catch (Exception e) {
 			sum = 0xffff;
