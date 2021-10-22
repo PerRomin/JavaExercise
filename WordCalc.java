@@ -120,29 +120,34 @@ public class WordCalc {
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim();
 				if (string1.startsWith("=")){
-					System.out.println("unknown");
+					System.out.println("calc = unknown");
 				} else {
-				if(variables.size()!=0) {
-					int sum = calc(string1, variables);
-						if(backvariables.get(sum) == null){
-							if(string1.isEmpty()){
-								System.out.println("unknown");
-							}else {
+
+					if (variables.size() != 0) {
+						int sum = calc(string1, variables);
+						if (backvariables.get(sum) == null) {
+							if (string1.isEmpty()) {
+								System.out.println("calc = unknown");
+							} else {
 								System.out.println(string1 + " " + "unknown");
 							}
-						}else {
+						} else {
 							string3 = backvariables.get(sum);
 							System.out.println(string1 + " " + string3);
 						}
 					} else {
-					System.out.println("unknown");
+						if(string1.isEmpty()){
+							//System.out.println("unknown");
+						}else {
+							System.out.println(string1 + " unknown");
+						}
 					}
-
+				}
 				}
 				string1 = "";
 				string2 = "";
 				string3	= "";
-			}
+
     	}
 		myObj.close();
 	}
