@@ -45,7 +45,11 @@ public class WordCalc {
     	String[] variable  = name.split(" ", 4);
 		int sum = 0;
 		int num1,num2;
+		try {
 			num1 = variables.get(variable[0]);
+		} catch (Exception e) {
+			num1 = 0xffff;
+		}
 		try {
 			num2 = variables.get(variable[2]);
 		} catch (Exception e) {
@@ -85,17 +89,21 @@ public class WordCalc {
 			}
 			if(sentence.contains("def")) {
 				sentence2 = myObj.next();
-				int value = myObj.nextInt();
-				if (variables.size() == 0) {
-					variables.put(sentence2, value);
-					backvariables.put(value, sentence2);
-				} else {
-					backvariables.remove(variables.get(sentence2));
-					variables.remove(sentence2);
-					variables.put(sentence2, value);
-					backvariables.put(value, sentence2);
-				}
+				try {
+					int value = myObj.nextInt();
+					if (variables.size() == 0) {
+						variables.put(sentence2, value);
+						backvariables.put(value, sentence2);
+					} else {
+						backvariables.remove(variables.get(sentence2));
+						variables.remove(sentence2);
+						variables.put(sentence2, value);
+						backvariables.put(value, sentence2);
+					}
+				} catch (Exception e) {}
+
 			}
+
 			if(sentence.contains("calc")){
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim() + " ";
