@@ -13,14 +13,15 @@ public class WordCalc {
 		if (name.startsWith("=")==false){
 			try {
 				num3 = (int) variables.get(variable[1]);
+
+				if(variable[0].contains("-")){
+					sum = calculateMinus(sum, num3, variable[2], variables);
+				}
+				if(variable[0].contains("+")){
+					sum = calculatePlus(sum, num3, variable[2], variables);
+				}
 			} catch (Exception e) {
-				num3 = 0xffff;
-			}
-			if(variable[0].contains("-")){
-				sum = calculateMinus(sum, num3, variable[2], variables);
-			}
-			if(variable[0].contains("+")){
-				sum = calculatePlus(sum, num3, variable[2], variables);
+				sum = 0xffff;
 			}
 		}
 		return sum;
@@ -35,14 +36,15 @@ public class WordCalc {
 		if (name.startsWith("=")==false){
 			try {
 				num3 = (int) variables.get(variable[1]);
+
+				if(variable[0].contains("-")){
+					sum = calculateMinus(sum, num3,  variable[2], variables);
+				}
+				if(variable[0].contains("+")){
+					sum = calculatePlus(sum, num3, variable[2], variables);
+				}
 			} catch (Exception e) {
-				num3 = 0xffff;
-			}
-			if(variable[0].contains("-")){
-				sum = calculateMinus(sum, num3,  variable[2], variables);
-			}
-			if(variable[0].contains("+")){
-				sum = calculatePlus(sum, num3, variable[2], variables);
+				sum = 0xffff;
 			}
 		}
 		//System.err.println(string1 + string2);
@@ -55,25 +57,25 @@ public class WordCalc {
 		int num1,num2;
 		try {
 			num1 = variables.get(variable[0]);
-		} catch (Exception e) {
-			num1 = 0xffff;
-		}
-		try {
-			num2 = variables.get(variable[2]);
-		} catch (Exception e) {
-			num2 = 0xffff;
-		}
-		//System.err.println("nummer1:" + num1);
-		//System.err.println("nummer2:" + num2);
+			try {
+				num2 = variables.get(variable[2]);
+			//System.err.println("nummer1:" + num1);
+			//System.err.println("nummer2:" + num2);
 
-		if (variable[1].contains("+")){
-			sum = calculatePlus(num1, num2, variable[3], variables);
-		}
-		if (variable[1].contains("-")){
-			sum = calculateMinus(num1, num2, variable[3], variables);
-		}
-		if (variable[1].contains("=")){
-			sum = num1;
+				if (variable[1].contains("+")){
+					sum = calculatePlus(num1, num2, variable[3], variables);
+				}
+				if (variable[1].contains("-")){
+					sum = calculateMinus(num1, num2, variable[3], variables);
+				}
+				if (variable[1].contains("=")){
+				sum = num1;
+				}
+			} catch (Exception e) {
+				sum = 0xffff;
+			}
+		} catch (Exception e) {
+			sum = 0xffff;
 		}
 		return sum;
 	}
@@ -114,7 +116,7 @@ public class WordCalc {
 
 			if(sentence.contains("calc")){
 				string1 = myObj.nextLine() ;
-				string1 = string1.trim() + " ";
+				string1 = string1.trim();
 				if (string1.startsWith("=")){
 					string3 = "unknown";
 				} else {
@@ -130,7 +132,7 @@ public class WordCalc {
 					string3 = "unknown";
 				}
 				}
-				System.out.println(string1 + string3);
+				System.out.println(string1 + " " + string3);
 				string1 = "";
 				string2 = "";
 				string3	= "";
