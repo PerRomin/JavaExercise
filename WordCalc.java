@@ -65,7 +65,7 @@ public class WordCalc {
 		}
 		//System.err.println("nummer1:" + num1);
 		//System.err.println("nummer2:" + num2);
-		
+
 		if (variable[1].contains("+")){
 			sum = calculatePlus(num1, num2, variable[3], variables);
 		}
@@ -86,7 +86,7 @@ public class WordCalc {
 		HashMap<Integer, String> backvariables = new HashMap<Integer, String>();
 
     	String sentence;
-		
+
 		while(myObj.hasNext())
 		{
 			sentence = myObj.next();
@@ -103,12 +103,10 @@ public class WordCalc {
 						variables.put(sentence2, value);
 						backvariables.put(value, sentence2);
 					} else {
-						if(backvariables.get(value)==null) {
-							backvariables.remove(variables.get(sentence2));
-							variables.remove(sentence2);
-							variables.put(sentence2, value);
-							backvariables.put(value, sentence2);
-						}
+						backvariables.remove(variables.get(sentence2));
+						variables.remove(sentence2);
+						variables.put(sentence2, value);
+						backvariables.put(value, sentence2);
 					}
 				} catch (Exception e) {}
 
@@ -118,7 +116,6 @@ public class WordCalc {
 				string1 = myObj.nextLine() ;
 				string1 = string1.trim() + " ";
 				if (string1.startsWith("=")){
-					string1 = "";
 					string3 = "unknown";
 				} else {
 				if(variables.size()!=0) {
@@ -137,8 +134,6 @@ public class WordCalc {
 				string1 = "";
 				string2 = "";
 				string3	= "";
-
-			//}
 			}
     	}
 		myObj.close();
